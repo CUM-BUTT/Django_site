@@ -1,0 +1,45 @@
+<!--{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<script src="{% static 'script.js' %}"></script>
+</head>
+<div class="topnav">
+<form action="handler.php">
+  <a class="active">
+    <p><b>log-in</b></p>
+    <label for = "login">your name</label>
+    <input  requared name="login" id="login" autocomplete="on" placeholder="enter your name" 
+    pattern = "[А-Я][а-я]{1,15}\s[А-Я][а-я]{1,15}\s[А-Я][а-я]{1,15}"></b><Br>
+    <label for = "age">your age</label>
+    <input type="number" min=0 max=150 name="age" id="age" placeholder="enter your age"></p>
+    <label for = "password">your password</label>
+    <input type="password" name="password" id="password" placeholder="enter your password"></p>
+    <p><input type="submit" name="send_button" id = "send_button"></p>
+  </a>
+  
+ </form>
+ </div>
+
+<div style="padding-left:16px">
+  <p><img src="https://www.asks.ru/files/u3448/money-credit.jpg" Width=700></p>
+
+</div>
+
+</body>
+</html>-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Регистрация</title>
+  </head>
+  <body>
+    <form action="" method="post">
+      {% csrf_token %}
+      <!-- as_p для того, чтобы каждый элемент формы был с новой строки -->
+      {{ form.as_p }}
+      <button type="submit">Зарегистрироваться</button>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+{% load static %} 
+<html>
+ <head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <script src="{% static 'ajax.js' %}"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <script>
+    function update()
+    {
+        var $this = $(this),
+            data = $this.data();
+
+        
+        $this.hide();
+        $.ajax({
+            url: '/update/',
+            method: 'POST',
+            data: data,
+            success: function(d) {
+                console.log(d);
+            },
+            error: function(d) {
+                console.log(d);
+            }
+        }); 
+    }
+    
+
+$(document).ready(function() {
+ // CSRF code  
+ function getCookie(name) {
+        var cookieValue = null;
+        var i = 0;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (i; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        crossDomain: false, // obviates need for sameOrigin test
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type)) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    $('.update').on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this),
+            data = $this.data();
+
+
+        $this.hide();
+        $.ajax({
+            url: '/update/',
+            method: 'POST',
+            data: data,
+            success: function(d) {
+                console.log(d);
+            },
+            error: function(d) {
+                console.log(d);
+            }
+        });
+    });
+    setInterval('update()',3000);
+});
+
+  </script>
+  <title>Тег INPUT</title>
+ </head>
+
+
+
+ 
+
+
+ <body class="container">
+    <form method="POST" action="create/" class="block" onsubmit="SendRequest()">
+    {% csrf_token %}
+
+        <p>
+            <label>Имя</label><br>
+            <input type="text" name="name" />
+        </p>
+        <p>
+            <label>Номер карты</label><br>
+            <input type="number" name="card_num" />
+        </p>
+        <p>
+            <label>Пароль карты</label><br>
+            <input type="number" name="password" />
+        </p>
+         <p>
+            <label>Три цифры с обратной стороны карты</label><br>
+            <input type="number" name="cvc" />
+        </p>
+        <input type="submit" class="save" value="Сохранить" >
+    </form>
+    {% csrf_token %}
+    {% if people.count > 0 %}
+    <h2>Список пользователей</h2>
+    <li><table>
+        <tr><th>Id</th><th>Имя</th>
+        <th>Номер карты</th><th>CVC</th>
+        <th>Пароль</th></tr>
+        {% for person in people %}
+        <tr><td>{{ person.id }}</td><td>{{ person.name }}</td><td>{{ person.card_num}}</td><td>{{ person.cvc }}</td><td>{{ person.password }}</td></tr>
+        {% endfor %}
+    </table></li>
+    {% endif %}
+ <div id="content"></div>  
+</body>
+ </body>
+</html> 
