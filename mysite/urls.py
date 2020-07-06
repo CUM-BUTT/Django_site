@@ -24,11 +24,11 @@ from gameportal import views
 
 
 urlpatterns = [
-    path('', views.index),
+    #path('', HomeView.as_view()),
     url(r'^$', HomeView.as_view()),
     #path('<int:people_id>/',views.index, name='index'),
     url(r'^About$', AboutView.as_view()),
-    url(r'^TakeALoan/$', TakeALoanView.as_view()),
+    url(r'^TakeALoan/$', views.TakeALoan),
     url(r'^Donate/$', DonateView.as_view()),
     url('admin/', admin.site.urls), 
     url(r'^register/$', RegisterFormView.as_view()), 

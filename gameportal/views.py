@@ -108,7 +108,7 @@ def index(request):
      return render(request,"indexTemplate.html",context = {'person_list' : Person.objects.order_by('-name')})"""
  
 # получение данных из бд
-def index(request):
+def TakeALoan(request):
     #people=Person.objects.get(pk=people_id)
     people = Person.objects.all()
    
@@ -133,30 +133,12 @@ def create(request):
  
     return HttpResponseRedirect("/") 
 
-"""def update(request):
-  if request.method == 'GET':
-    persons = list(Person.objects.all())
-    n = len(persons)
-    context = n
-  return HttpResponse(context,request)"""
-
 
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 import json
 from django.http import JsonResponse
 
-"""
-if request.user.is_authenticated() and request.is_ajax() and request.POST:
-        object_id = request.POST.get('id', None)
-        b = get_object_or_404(Company, id=object_id)
-        b.delete()
-        data = {'message': 'delete'.format(b)}
-    return HttpResponse(json.dumps(data), content_type='application/json')
-    else:
-        return JsonResponse({'error': 'Only authenticated users'}, status=404)
-"""
- 
 def update(request):
     if  request.is_ajax():
       b = get_object_or_404(Person,id = 52)
@@ -167,17 +149,3 @@ def update(request):
     else:
       print("else")
       return JsonResponse({'error': 'Only authenticated users'}, status=404)  
-
-"""   
-def update(request):
-    if  request.is_ajax():
-      p = Person.objects.get(max(Person.person_id))      
-      b = get_object_or_404(Person,id = 51)
-      
-      data = {'message': 'update'.format(b)}
-      index(request)
-      return HttpResponse(json.dumps(data),content_type='application/json')
-    else:
-      print("else")
-      return JsonResponse({'error': 'Only authenticated users'}, status=404)  
-      """

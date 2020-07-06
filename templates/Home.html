@@ -8,7 +8,7 @@
 
 
 
-
+{% block meny %}
 <div class="topnav">
   <!--a class="active" href="#home">Home</a-->
   <a class="active" href="TakeALoan"><h1>Take a loan</h1></a>
@@ -19,12 +19,16 @@
   
   <a href="register">log out</a>
 </div>
+{% endblock  %}
 
+{% block content %}
 <div style="padding-left:16px">
   <p><img src="https://www.asks.ru/files/u3448/money-credit.jpg" Width=700></p>
   <!--h2>Top Navigation Example</h2>
   <p>Some content..</p-->
 </div>
+{% endblock %}
+
 
 </body>
 </html>
